@@ -28,13 +28,14 @@ RUN chmod +x build/cfssl.sh && ./build/cfssl.sh
 # Install kubectl
 RUN chmod +x build/kubectl.sh && ./build/kubectl.sh
 
-
+# Create test user
 RUN useradd -ms /bin/bash gc
 WORKDIR /home/gc
+# Add the build scripts
 COPY --chown=gc:gc build/ build/
 
-
-RUN chmod +x build/cfssl.sh && ./build/cfssl.sh
+# Add the steps directory
+RUN mkdir steps && chown gc:gc steps
 
 USER gc
 
