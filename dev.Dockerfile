@@ -25,6 +25,9 @@ COPY build/ build/
 # Install cfssl
 RUN chmod +x build/cfssl.sh && ./build/cfssl.sh
 
+# Install kubectl
+RUN chmod +x build/kubectl.sh && ./build/kubectl.sh
+
 
 RUN useradd -ms /bin/bash gc
 WORKDIR /home/gc
