@@ -18,11 +18,22 @@ RUN export CLOUD_SDK_REPO="cloud-sdk-$(lsb_release -c -s)" && \
     curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add - && \
     apt-get update -y && apt-get install google-cloud-sdk -y
 
+# Get build scripts
+WORKDIR /root
+COPY build/ build/
+
+# Install cfssl
+RUN chmod +x build/cfssl.sh && ./build/cfssl.sh
+
 
 RUN useradd -ms /bin/bash gc
 WORKDIR /home/gc
 COPY --chown=gc:gc build/ build/
 
+
+RUN chmod +x build/cfssl.sh && ./build/cfssl.sh
+
 USER gc
 
+# User level configuration and installs
 RUN chmod +x build/gcloud.sh && ./build/gcloud.sh
