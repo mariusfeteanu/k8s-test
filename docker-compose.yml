@@ -6,3 +6,4 @@ services:
       dockerfile: dev.Dockerfile
     volumes:
       - ./steps/:/home/gc/steps
+      - ./config/user:/home/gc/.config

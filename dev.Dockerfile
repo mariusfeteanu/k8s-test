@@ -34,10 +34,8 @@ WORKDIR /home/gc
 # Add the build scripts
 COPY --chown=gc:gc build/ build/
 
-# Add the steps directory
+# Add the local directories, so we can chown them
 RUN mkdir steps && chown gc:gc steps
+RUN mkdir .config && chown gc:gc .config
 
 USER gc
-
-# User level configuration and installs
-RUN chmod +x build/gcloud.sh && ./build/gcloud.sh
